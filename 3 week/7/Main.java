@@ -1,4 +1,5 @@
 public class Main {
+    // Служебный метод для конвертации символа в цифру в методе parse
     private static int indexOf(char letter) {
         char[] alphabet = new char[]{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
         int i = 0;
@@ -13,13 +14,15 @@ public class Main {
 
     public static ChessPosition parse(String position) throws IllegalPositionException {
         int x, y;
-        // Записываем в x индекс, который соответсвует номеру буквы, в у - цифру из исходной строки
+        // Записываем в x индекс, который соответсвует номеру буквы, в у - цифру из исходной строки-1
+        // Пользователь оперирует цифрами от 1 до 8, программа - от 0 до 7
         x = indexOf(position.charAt(0));
         y = position.charAt(1) - '0' - 1;
         ChessPosition chessPosition = new ChessPosition(x, y);
         return chessPosition;
     }
 
+    // Проверка, может ли конь пройти по позициям в массиве строк: сохраняем начальную позицию и следующую, потом проверяем их
     public static boolean isKnight(String... steps) throws IllegalPositionException, IllegalMoveException {
         ChessPosition start, end;
         start = parse(steps[0]);
@@ -28,6 +31,7 @@ public class Main {
             int xDelta, yDelta;
             xDelta = Math.abs(end.getX() - start.getX());
             yDelta = Math.abs(end.getY() - start.getY());
+            // Проверяем верность хода с помощью вспомогательных переменных смещения по горизонтали и вертикали
             if ((xDelta == 2 && yDelta == 1) || (xDelta == 1 && yDelta == 2)) {
                 start = end;
             } else {

@@ -2,8 +2,6 @@ public class ChessPosition {
     private int x;
     private int y;
 
-    // Сделать обработку исключений на установку значений, они должны быть от 0 до 7 вкл IllegalPositionException
-    // Сделать обработку исключений, может ли конь ходить как надо
     public ChessPosition(int x, int y) throws IllegalPositionException {
         if ((x < 0 || x > 7) || (y < 0 || y > 7)) {
             throw new IllegalPositionException("Пользователь ввел некорректные данные");
@@ -39,6 +37,7 @@ public class ChessPosition {
 
     @Override
     public String toString() {
+        // Массив символов используется для вывода позиции в формате g3
         char[] alphabet = new char[]{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
         return alphabet[x] + Integer.toString(y + 1);
     }
