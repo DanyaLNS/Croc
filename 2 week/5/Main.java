@@ -1,11 +1,13 @@
 public class Main {
     public static void main(String[] args) {
-        Annotation car = new Annotation("Car", "Rectangle");
-        Annotation apple = new Annotation("Apple", "Circle");
-        Annotation[] annotations = new Annotation[2];
-        annotations[0] = car;
-        annotations[1] = apple;
-        AnnotatedImage annotatedImage = new AnnotatedImage("imagePath", annotations);
-        System.out.println(annotatedImage.findByPoint(3, 3).toString());
+        Annotation annotation1 = new Annotation("Car", "rectangle");
+        Annotation annotation2 = new Annotation("Moon", "circle");
+
+        AnnotatedImage annotatedImage = new AnnotatedImage("", annotation1, annotation2);
+        System.out.println(annotatedImage.findByPoint(10, 5));
+        annotatedImage.findByLabel("Moon").getFigure().circle.move(500, 500);
+        System.out.println(annotatedImage.findByLabel("Car"));
+        annotatedImage.findByPoint(1,3).getFigure().rectangle.move(100,100);
+        annotatedImage.printAnnotations();
     }
 }

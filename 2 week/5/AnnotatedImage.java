@@ -1,40 +1,59 @@
 class AnnotatedImage {
-  private final int pow(int num, int degree){
-    int beginNum = num;
-    for(int i = 0; i<degree; i++){
-      num *=beginNum;
+    // Служебный метод для возведения в квадрат, чтобы проверить, входит ли точка в окружность
+    private static int pow(int num) {
+        return num * num;
     }
-    return num;
-  }
-  private final String imagePath;
 
-  private final Annotation[] annotations;
+    private Annotation notFound;
+    private final String imagePath;
+    private final Annotation[] annotations;
 
-  public AnnotatedImage(String imagePath, Annotation... annotations) {
-    this.imagePath = imagePath;
-    this.annotations = annotations;
-  }
-
-  public String getImagePath() {
-    return this.imagePath;
-  }
-
-  public Annotation[] getAnnotations() {
-    return this.annotations;
-  }
-
-  public Annotation findByPoint(int x, int y){
-    for (Annotation element : annotations) {
-      if(element.figure == "Rectangle"){
-        if((element.rectangle.xLeft < x) && (element.rectangle.xRight > x) && (element.rectangle.yLeft < y) && (element.rectangle.yRight > y)){
-          return element;
-        }
-      } else if(element.figure == "Circle"){
-        if(pow(element.circle.xCoordinate - x, 2) + pow(element.circle.yCoordinate - y, 2) < pow(element.circle.radius,2)){
-          return element;
-        }
-      }
+    public AnnotatedImage(String imagePath, Annotation... annotations) {
+        this.imagePath = imagePath;
+        this.annotations = annotations;
+        notFound = new Annotation("", "");
     }
-    return null;
-  }
+
+    public void printAnnotations() {
+        for (Annotation annotation : annotations) {
+            System.out.println(annotation.toString());
+        }
+    }
+
+    public String getImagePath() {
+        return this.imagePath;
+    }
+
+    public Annotation[] getAnnotations() {
+        return this.annotations;
+    }
+
+    // Поиск по аннотации
+    public Annotation findByLabel(String label) {
+        for (Annotation annotation : annotations) {
+            if (annotation.getAnnotation() == label) {
+                return annotation;
+            }
+        }
+        return notFound;
+    }
+
+    // Поиск по координате
+    public Annotation findByPoint(int x, int y) {
+        for (Annotation annotation : annotations) {
+            // Проверяем условия вхождения точки для каждой фигуры
+            if (annotation.getFigure().figure == "rectangle") {
+                if (annotation.getFigure().rectangle.xLeft < x && annotation.getFigure().rectangle.yLeft < y && annotation.getFigure().rectangle.xRight > x
+                        && annotation.getFigure().rectangle.yRight > y) {
+                    return annotation;
+                }
+            } else if (annotation.getFigure().figure == "circle") {
+                if (pow(annotation.getFigure().circle.radius) >= pow(x - annotation.getFigure().circle.xCoordinate)
+                        + pow(y - annotation.getFigure().circle.yCoordinate)) {
+                    return annotation;
+                }
+            }
+        }
+        return notFound;
+    }
 }

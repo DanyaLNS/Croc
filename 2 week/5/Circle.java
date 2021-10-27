@@ -1,15 +1,15 @@
-public class Circle extends Annotation{
-    public int xCoordinate;
-    public int yCoordinate;
-    public int radius;
-    public Circle(String annotation, String figure, int xCoordinate, int yCoordinate, int radius){
-        super(annotation, figure);
+public class Circle implements Movable {
+    protected int xCoordinate;
+    protected int yCoordinate;
+    protected int radius;
+    // Определяем метод интерфейса
+    public void move(int dx, int dy) {
+        xCoordinate += dx;
+        yCoordinate += dy;
+    }
+    public Circle(int xCoordinate, int yCoordinate, int radius) {
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
         this.radius = radius;
-    }
-    @Override
-    public String toString() {
-        return "C (" + xCoordinate + ", " + yCoordinate +") " + radius + ": " + annotation;
     }
 }
