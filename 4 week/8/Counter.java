@@ -1,5 +1,3 @@
-package Croc.work8;
-
 import java.io.*;
 import java.util.Scanner;
 
