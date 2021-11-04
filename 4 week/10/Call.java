@@ -7,10 +7,7 @@ public class Call {
         this.end = end;
     }
 
-    public long getEnd() {
-        return end;
-    }
-
+    public long getEnd() { return end; }
     public long getStart() {
         return start;
     }
