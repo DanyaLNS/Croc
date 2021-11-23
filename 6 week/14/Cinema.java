@@ -59,20 +59,20 @@ public class Cinema {
         }
         return count;
     }
+
     // Я пытался сделать алгоритм поэффиктивнее, но только сильнее запутывался
     // зато работает))
-    // Алгоритм поиска наиболее просматриваемого фильма
     public String mostPopularFilm(ArrayList<Integer> temp) {
         int max = 0;
         int maxCount = 0;
         int currentCount = 0;
-        for (int i = 0; i < temp.size() - 1; i++) {
+        for (int i = 0; i < temp.size(); i++) {
             for (int j = 0; j < temp.size(); j++) {
-                if(temp.get(i).equals(temp.get(j))){
+                if (temp.get(i).equals(temp.get(j))) {
                     currentCount++;
                 }
             }
-            if(currentCount>maxCount){
+            if (currentCount > maxCount) {
                 max = temp.get(i);
                 maxCount = currentCount;
             }
@@ -90,7 +90,7 @@ public class Cinema {
             ArrayList<Integer> tempHistory = new ArrayList<>();
             tempHistory = strToInt(temp);
             // Если хотя бы половина просмотренных фильмов совпадает, то: исключаем из тэмпа все, которые пользователь уже видел
-            if (findIntersection(temp, userHistory) >= (userHistory.length() / 2)) {
+            if (findIntersection(temp, userHistory) >= (intUserHistory.size() / 2.)) {
                 // Добавляем в коллекцию промежуточных итогов все фильмы, которые пользователь еще не смотрел
                 for (Integer number : tempHistory) {
                     if (intUserHistory.indexOf(number) == -1) {
@@ -104,7 +104,17 @@ public class Cinema {
     }
 
     public static void main(String[] args) throws IOException {
+        // Считаю наиболее популярный фильм из отобранных в пункте 1
         Cinema cinema = new Cinema();
-        System.out.println(cinema.recomendation("2,4"));
+        System.out.println("1 -> " + cinema.recomendation("1"));
+        System.out.println("4 -> " + cinema.recomendation("4"));
+        System.out.println("1,2 -> " + cinema.recomendation("1,2"));
+        System.out.println("5 -> " + cinema.recomendation("5"));
+        System.out.println("5,6 -> " + cinema.recomendation("5,6"));
+        System.out.println("1,5 -> " + cinema.recomendation("1,5"));
+        System.out.println("4,5 -> " + cinema.recomendation("4,5"));
+        System.out.println("1,5,6 -> " + cinema.recomendation("1,5,6"));
+        System.out.println("1,2,6 -> " + cinema.recomendation("1,2,6"));
+        System.out.println("1,2,3,4 -> " + cinema.recomendation("1,2,3,4"));
     }
 }
