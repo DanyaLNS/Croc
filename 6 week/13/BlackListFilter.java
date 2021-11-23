@@ -14,5 +14,5 @@ public interface BlackListFilter {
      * @param blackList list of words that should not
      *                  be present in a comment
      */
-    static void filterComments(List<String> comments, Set<String> blackList){};
+    void filterComments(List<String> comments, Set<String> blackList);
 }
