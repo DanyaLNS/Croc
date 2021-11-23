@@ -13,19 +13,21 @@ public class Group {
 
     // Метод для формирования границ возрастных групп
     public static void findBoundaries(String groupBoundaries) {
-        String[] numbers = groupBoundaries.split(" ");
-        for (String number : numbers) {
-            boundaries.add(Integer.parseInt(number));
+        String[] groupToNumbers = groupBoundaries.split(" ");
+        for (String age : groupToNumbers) {
+            boundaries.add(Integer.parseInt(age));
         }
     }
 
     public static void makeGroupes() {
+        // StringBuilder используется для формирования строки возрастной группы
         StringBuilder tempResult = new StringBuilder("0-" + boundaries.get(0) + ": ");
         // переменная, чтобы выставлять запятые при наличии более одного человека в группе
         boolean isFirst = true;
         // переменная, чтобы отслеживать: есть ли люди, принадлежащие возрастной категории
         boolean isEmpty = true;
         for (Map.Entry<Integer, String> temp : personesMap.entrySet()) {
+            // temp - рассматриваемый в данный момент элемент из дерева
             if (temp.getKey() >= 0 && temp.getKey() < boundaries.get(0)) {
                 if (isFirst) {
                     tempResult.append(temp.getValue() + " (" + temp.getKey() + ")");
@@ -86,8 +88,8 @@ public class Group {
     }
 
     public static void printResult() {
-        for (String temp : result) {
-            System.out.println(temp);
+        for (String group : result) {
+            System.out.println(group);
         }
     }
 
@@ -98,14 +100,14 @@ public class Group {
         findBoundaries(groupBoundaries);
         // Вводим информацию о людях в коллекцию persones
         while (in.hasNextLine()) {
-            String temp;
-            temp = in.nextLine();
-            if (temp.equals("END")) {
+            String persone;
+            persone = in.nextLine();
+            if (persone.equals("END")) {
                 break;
             }
             // Перевод строк в словарь, у которого ключ - возраст человека, а значение - ФИО
-            String[] tempArray = temp.split(" ");
-            personesMap.put(Integer.parseInt(tempArray[3]), tempArray[0] + " " + tempArray[1] + " " + tempArray[2]);
+            String[] personeArray = persone.split(" ");
+            personesMap.put(Integer.parseInt(personeArray[3]), personeArray[0] + " " + personeArray[1] + " " + personeArray[2]);
         }
         in.close();
         makeGroupes();
