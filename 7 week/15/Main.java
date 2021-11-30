@@ -16,6 +16,6 @@ public class Main {
         comments.add("Стоит более детально изучить тему...");
         comments.add("Я не против убить его");
         Predicate<String> predicate = s -> (s.indexOf("убить") != -1) || (s.indexOf("повесить") != -1);
-        System.out.println(removeComments.filterComments(predicate,comments));
+        System.out.println(removeComments.filterComments(predicate, comments));
     }
 }

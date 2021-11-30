@@ -5,7 +5,14 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public interface BlackListFilter {
-    default <T1 extends Iterable<T2>, T2> ArrayList<T2> filterComments(Predicate<T2> predicate, T1 collection){
-        return new ArrayList();
+
+    default <T> ArrayList filterComments(Predicate<T> predicate, Iterable<T> collection){
+        ArrayList<T> result = new ArrayList<>();
+        for (T comment : collection) {
+            if(!predicate.test(comment)){
+                result.add(comment);
+            }
+        }
+        return result;
     };
 }
